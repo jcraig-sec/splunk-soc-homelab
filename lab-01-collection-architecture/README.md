@@ -35,6 +35,22 @@ This lab gave me more experience working with Splunk and understanding how secur
 
 I also learned why collecting logs from IT systems alone is not enough for an organization with operational technology. Missing OT logs could make it harder for analysts to identify suspicious activity across the environment.
 
-## Evidence
+## Lab Evidence
 
-Screenshots and my collection architecture diagram will be added to this folder.
+### 1. Collection Architecture
+
+![Cascade Power Authority collection architecture](screenshots/cascade_a1_architecture.png)
+
+I created this diagram to show how I collected VPN and badge access logs from Cascade's IT network into Splunk. Each source uses its own index. The diagram also shows the OT network, which wasn't being monitored. This was an important gap because suspicious activity involving substations or other OT equipment wouldn't be visible in my current setup.
+
+### 2. VPN Log Collection
+
+![Splunk VPN event verification](screenshots/splunk-vpn-events.png)
+
+I manually uploaded the VPN session logs into Splunk and stored them in the `cascade_vpn` index. I ran an SPL search to verify that all 1,508 events were available. These logs could help an analyst investigate unusual remote connections or suspicious VPN activity.
+
+### 3. Badge Access Log Collection
+
+![Splunk badge event verification](screenshots/splunk-badge-events.png)
+
+I used the Splunk Universal Forwarder to collect badge access logs and send them to Splunk through port 9997. I verified that 843 events were searchable in the `cascade_badge` index. These logs could help identify unusual physical access to Cascade's facilities.
